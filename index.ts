@@ -75,28 +75,25 @@ function changeOpacity(): void {
 
 // Heatmap data: 500 Points
 function getPoints() {
-    const centerLat = -22.380642547698525;
-    const centerLng = -41.78030532786906;
-    const radius = 0.04 / 111.32; // Approximately 1 km in degrees
-    const numPoints = 1000;
+    const a = { lat: -22.38084271817004, lng: -41.78045631643171 };
+    const b = { lat: -22.380726770301877, lng: -41.78014719185411 };
+    const c = { lat: -22.380198493221595, lng: -41.78037585016787 };
+    const d = { lat: -22.380293360027274, lng: -41.78068229254109 };
+    const numPoints = 500;
     const points = [];
   
     for (let i = 0; i < numPoints; i++) {
-      const randomAngle = Math.random() * 2 * Math.PI;
-      const randomDistance = Math.sqrt(Math.random()) * radius;
-      const randomLat = centerLat + randomDistance * Math.cos(randomAngle);
-      const randomLng = centerLng + randomDistance * Math.sin(randomAngle);
+      const randomLat = Math.random() * (a.lat - b.lat) + b.lat;
+      const randomLng = Math.random() * (d.lng - a.lng) + a.lng;
   
       points.push(new google.maps.LatLng(randomLat, randomLng));
     }
   
     return points;
   }
-  
 declare global {
   interface Window {
     initMap: () => void;
   }
 }
 window.initMap = initMap;
-
